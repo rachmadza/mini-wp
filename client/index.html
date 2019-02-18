@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <title>Mini Wordpress</title>
+  </head>
+
+  <body>
+    <div id="app">
+      <navbar :user-logged-in="userLoggedIn" :logout='logout'></navbar>
+      
+      <!-- GUEST PRIVILAGES -->
+      <!-- login -->
+      <div v-if="!userLoggedIn">
+        <h2>Login Page</h2>
+        <form v-on:submit.prevent="login()">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input v-model="user.email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input v-model="user.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          </div>
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <!-- REGISTER -->
+
+
+
+      <!-- USER PRIVILAGES -->
+      <div class="row">
+        <!-- LIST ARTICLES -->
+        <div class="col-sm-7">
+          <article_page v-if="userLoggedIn" v-for="article in articles" :delete-article="deleteArticle" :key="article._id" v-bind:article='article'></article_page>
+        </div>
+        <!-- FORM CREATE NEW ARTICLE -->
+        <div class="col-sm-3">
+            <form v-if="userLoggedIn" v-on:submit.prevent="create()">
+              <div class="form-group">
+                <label for="">Title</label>
+                <input v-model="input.title" type="text" class="form-control" placeholder="Enter title">
+              </div>
+              <div class="form-group">
+                <label for="">Content</label>
+                <input v-model="input.content" type="text" class="form-control" placeholder="Enter content">
+              </div>
+              <div class="form-group">
+                <label for="">Author</label>
+                <input v-model="input.author" type="text" class="form-control" readonly>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>  
+      </div>
+      <!-- FORM UPDATE ARTICLE -->
+    </div>
+    
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+      <script src="./components/navbar.js"></script>
+      <script src="./components/articles.js"></script>
+      <script src="./components/login.js"></script>
+      <script src="./scripts/script.js"></script>
+
+
+
+  </body>
+</html>
